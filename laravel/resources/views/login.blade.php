@@ -43,6 +43,17 @@
       color: #ffffff;
       transform: translateY(-1px);
     }
+    .btn-quick-fill {
+      background-color: #121318;
+      border: 1px solid #25435D;
+      color: #87A4B5;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+    .btn-quick-fill:hover {
+      background-color: #25435D;
+      color: #ffffff;
+    }
   </style>
 </head>
 <body>
@@ -66,6 +77,19 @@
     </div>
   @endif
 
+  <!-- Fitur Pilih Akun Cepat (Quick Fill) -->
+  <div class="mb-4">
+    <label class="form-label small fw-semibold d-block mb-2" style="color: #87A4B5;">Isi Otomatis (Demo):</label>
+    <div class="d-flex gap-2">
+      <button type="button" class="btn btn-quick-fill w-100 rounded-2 py-1.5" onclick="fillCredentials('kasir01', 'kasir123')">
+        <i class="bi bi-person-badge me-1"></i> Kasir 1
+      </button>
+      <button type="button" class="btn btn-quick-fill w-100 rounded-2 py-1.5" onclick="fillCredentials('admin', 'admin123')">
+        <i class="bi bi-shield-lock me-1"></i> Admin
+      </button>
+    </div>
+  </div>
+
   <form action="{{ url('/login-process') }}" method="POST">
     @csrf
     
@@ -76,7 +100,7 @@
         <span class="input-group-text border-0" style="background-color: #121318; color: #87A4B5;">
           <i class="bi bi-person"></i>
         </span>
-        <input type="text" name="username" class="form-control border-0 py-2" style="background-color: #121318; color: #ffffff;" placeholder="Ketik username Anda" required autocomplete="off">
+        <input type="text" id="usernameInput" name="username" class="form-control border-0 py-2" style="background-color: #121318; color: #ffffff;" placeholder="Ketik username Anda" required autocomplete="off">
       </div>
     </div>
 
@@ -117,6 +141,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+  // Fungsi untuk menyembunyikan / menampilkan password
   function togglePassword() {
     const pwdInput = document.getElementById('passwordInput');
     const icon = document.getElementById('toggleIcon');
@@ -129,6 +154,12 @@
       icon.classList.remove('bi-eye-slash');
       icon.classList.add('bi-eye');
     }
+  }
+
+  // Fungsi untuk otomatis mengisi text box (Quick Fill)
+  function fillCredentials(username, password) {
+    document.getElementById('usernameInput').value = username;
+    document.getElementById('passwordInput').value = password;
   }
 </script>
 </body>
