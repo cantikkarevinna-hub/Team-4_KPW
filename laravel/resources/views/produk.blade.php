@@ -13,7 +13,8 @@
       </h2>
       <p class="text-muted small mb-0" style="color: #87A4B5 !important;">Manajemen daftar barang, penetapan harga, dan kontrol stok</p>
     </div>
-    <button class="btn fw-semibold border-0 px-3 py-2" style="background-color: #7D0018; color: #ffffff;">
+    <!-- Tombol Tambah Produk (Membuka Modal) -->
+    <button class="btn fw-semibold border-0 px-3 py-2" style="background-color: #7D0018; color: #ffffff;" data-bs-toggle="modal" data-bs-target="#modalProduk" onclick="resetForm()">
       <i class="bi bi-plus-lg me-1"></i> Tambah Produk Baru
     </button>
   </div>
@@ -73,8 +74,15 @@
             </td>
             <td class="py-3 text-center pe-3">
               <div class="btn-group">
-                <button class="btn btn-sm me-1 rounded-2 border-0" style="background-color: #121318; color: #B9D3E2;"><i class="bi bi-pencil"></i></button>
-                <button class="btn btn-sm rounded-2 border-0" style="background-color: rgba(255, 51, 75, 0.15); color: #FF6B6B;"><i class="bi bi-trash"></i></button>
+                <!-- Tombol Edit: Mengisi form modal secara otomatis -->
+                <button class="btn btn-sm me-1 rounded-2 border-0" style="background-color: #121318; color: #B9D3E2;" 
+                        data-bs-toggle="modal" data-bs-target="#modalProduk"
+                        onclick="fillEditForm('BRG-001', 'Kopi Susu Aren', 'minuman', '10000', '18000', '45')">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm rounded-2 border-0" style="background-color: rgba(255, 51, 75, 0.15); color: #FF6B6B;">
+                  <i class="bi bi-trash"></i>
+                </button>
               </div>
             </td>
           </tr>
@@ -98,8 +106,15 @@
             </td>
             <td class="py-3 text-center pe-3">
               <div class="btn-group">
-                <button class="btn btn-sm me-1 rounded-2 border-0" style="background-color: #121318; color: #B9D3E2;"><i class="bi bi-pencil"></i></button>
-                <button class="btn btn-sm rounded-2 border-0" style="background-color: rgba(255, 51, 75, 0.15); color: #FF6B6B;"><i class="bi bi-trash"></i></button>
+                <!-- Tombol Edit: Mengisi form modal secara otomatis -->
+                <button class="btn btn-sm me-1 rounded-2 border-0" style="background-color: #121318; color: #B9D3E2;" 
+                        data-bs-toggle="modal" data-bs-target="#modalProduk"
+                        onclick="fillEditForm('BRG-002', 'Nasi Goreng Spesial', 'makanan', '15000', '25000', '4')">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm rounded-2 border-0" style="background-color: rgba(255, 51, 75, 0.15); color: #FF6B6B;">
+                  <i class="bi bi-trash"></i>
+                </button>
               </div>
             </td>
           </tr>
@@ -120,4 +135,80 @@
   </div>
 
 </div>
+
+<!-- MODAL FORM PRODUK (TAMBAH / EDIT) -->
+<div class="modal fade" id="modalProduk" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4 shadow" style="background-color: #1E222D; color: #E1E7ED;">
+      <div class="modal-header border-bottom" style="border-color: #25435D !important;">
+        <h5 class="modal-title fw-bold text-white" id="modalTitle">Tambah Produk Baru</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="#" method="POST">
+        @csrf
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label small fw-semibold" style="color: #87A4B5;">Kode / Barcode</label>
+            <input type="text" id="inputKode" name="kode" class="form-control border-0 py-2" style="background-color: #121318; color: #ffffff;" placeholder="Misal: BRG-003" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-semibold" style="color: #87A4B5;">Nama Produk</label>
+            <input type="text" id="inputNama" name="nama" class="form-control border-0 py-2" style="background-color: #121318; color: #ffffff;" placeholder="Ketik nama produk" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-semibold" style="color: #87A4B5;">Kategori</label>
+            <select id="inputKategori" name="kategori" class="form-select border-0 py-2" style="background-color: #121318; color: #B9D3E2;" required>
+              <option value="">Pilih Kategori</option>
+              <option value="minuman">Minuman</option>
+              <option value="makanan">Makanan</option>
+            </select>
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold" style="color: #87A4B5;">Harga Beli (Rp)</label>
+              <input type="number" id="inputHargaBeli" name="harga_beli" class="form-control border-0 py-2" style="background-color: #121318; color: #ffffff;" placeholder="0" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold" style="color: #87A4B5;">Harga Jual (Rp)</label>
+              <input type="number" id="inputHargaJual" name="harga_jual" class="form-control border-0 py-2" style="background-color: #121318; color: #ffffff;" placeholder="0" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-semibold" style="color: #87A4B5;">Jumlah Stok</label>
+            <input type="number" id="inputStok" name="stok" class="form-control border-0 py-2" style="background-color: #121318; color: #ffffff;" placeholder="0" required>
+          </div>
+        </div>
+        <div class="modal-footer border-top" style="border-color: #25435D !important;">
+          <button type="button" class="btn border-0 text-white" style="background-color: #121318;" data-bs-dismiss="modal">Batal</button>
+          <button type="submit" class="btn border-0 px-4 fw-semibold" style="background-color: #7D0018; color: #ffffff;">Simpan Data</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT JAVASCRIPT UNTUK OTOMATISASI FORM -->
+<script>
+  // Fungsi mengosongkan form saat menekan tombol "Tambah Produk Baru"
+  function resetForm() {
+    document.getElementById('modalTitle').innerText = 'Tambah Produk Baru';
+    document.getElementById('inputKode').value = '';
+    document.getElementById('inputNama').value = '';
+    document.getElementById('inputKategori').value = '';
+    document.getElementById('inputHargaBeli').value = '';
+    document.getElementById('inputHargaJual').value = '';
+    document.getElementById('inputStok').value = '';
+  }
+
+  // Fungsi mengisi otomatis nilai ke input form modal saat ikon pensil diklik
+  function fillEditForm(kode, nama, kategori, hargaBeli, hargaJual, stok) {
+    document.getElementById('modalTitle').innerText = 'Edit Data Produk';
+    document.getElementById('inputKode').value = kode;
+    document.getElementById('inputNama').value = nama;
+    document.getElementById('inputKategori').value = kategori;
+    document.getElementById('inputHargaBeli').value = hargaBeli;
+    document.getElementById('inputHargaJual').value = hargaJual;
+    document.getElementById('inputStok').value = stok;
+  }
+</script>
 @endsection
