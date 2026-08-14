@@ -71,11 +71,11 @@
           <span class="input-group-text border-0" style="background-color: #121318; color: #87A4B5;">
             <i class="bi bi-search"></i>
           </span>
-          <input type="text" class="form-control border-0 py-2" placeholder="Cari No. Nota atau Nama Kasir..." style="background-color: #121318; color: #ffffff;">
+          <input type="text" id="filterKeyword" class="form-control border-0 py-2" placeholder="Cari No. Nota atau Nama Kasir..." style="background-color: #121318; color: #ffffff;">
         </div>
       </div>
       <div class="col-lg-3 col-md-5">
-        <select class="form-select border-0 py-2" style="background-color: #121318; color: #B9D3E2;">
+        <select id="filterMetode" class="form-select border-0 py-2" style="background-color: #121318; color: #B9D3E2;">
           <option value="">Semua Metode Bayar</option>
           <option value="Tunai">Tunai / Cash</option>
           <option value="QRIS">QRIS / E-Wallet</option>
@@ -83,14 +83,14 @@
         </select>
       </div>
       <div class="col-lg-3 col-md-5">
-        <select class="form-select border-0 py-2" style="background-color: #121318; color: #B9D3E2;">
+        <select id="filterStatus" class="form-select border-0 py-2" style="background-color: #121318; color: #B9D3E2;">
           <option value="">Semua Status</option>
           <option value="Lunas">Lunas</option>
           <option value="Void">Void / Dibatalkan</option>
         </select>
       </div>
       <div class="col-lg-1 col-md-2 d-flex">
-        <button class="btn w-100 fw-semibold border-0 py-2" style="background-color: #7D0018; color: #ffffff;" title="Reset Filter">
+        <button type="button" class="btn w-100 fw-semibold border-0 py-2" style="background-color: #7D0018; color: #ffffff;" title="Reset Filter" onclick="resetFilter()">
           <i class="bi bi-arrow-counterclockwise"></i>
         </button>
       </div>
@@ -127,9 +127,23 @@
             </td>
             <td class="py-3 text-center pe-3">
               <div class="btn-group">
-                <button class="btn btn-sm me-1 rounded-2 border-0" style="background-color: #121318; color: #B9D3E2;" data-bs-toggle="modal" data-bs-target="#modalDetailTRX1"><i class="bi bi-eye me-1"></i> Detail</button>
-                <button class="btn btn-sm me-1 rounded-2 border-0" style="background-color: #7D0018; color: #ffffff;"><i class="bi bi-printer me-1"></i> Struk</button>
-                <button class="btn btn-sm rounded-2 border-0" style="background-color: rgba(255, 51, 75, 0.15); color: #FF6B6B;"><i class="bi bi-x-circle"></i></button>
+                <button class="btn btn-sm me-1 rounded-2 border-0" style="background-color: #121318; color: #B9D3E2;" 
+                        data-bs-toggle="modal" data-bs-target="#modalDetailTRX" 
+                        onclick="showDetail('#TRX-20260814-01', 'Tunai', 'Rp 41.000', 'Rp 50.000', 'Rp 9.000', [
+                          {nama: '2x Kopi Susu Gula Aren', sub: 'Rp 30.000', unit: '@ Rp 15.000'},
+                          {nama: '1x Roti Bakar Cokelat', sub: 'Rp 11.000', unit: '@ Rp 11.000'}
+                        ])">
+                  <i class="bi bi-eye me-1"></i> Detail
+                </button>
+                <button class="btn btn-sm me-1 rounded-2 border-0" style="background-color: #7D0018; color: #ffffff;" 
+                        onclick="cetakStruk('#TRX-20260814-01')">
+                  <i class="bi bi-printer me-1"></i> Struk
+                </button>
+                <button class="btn btn-sm rounded-2 border-0" style="background-color: rgba(255, 51, 75, 0.15); color: #FF6B6B;" 
+                        data-bs-toggle="modal" data-bs-target="#modalVoidTRX" 
+                        onclick="confirmVoid('#TRX-20260814-01')">
+                  <i class="bi bi-x-circle"></i>
+                </button>
               </div>
             </td>
           </tr>
@@ -148,9 +162,22 @@
             </td>
             <td class="py-3 text-center pe-3">
               <div class="btn-group">
-                <button class="btn btn-sm me-1 rounded-2 border-0" style="background-color: #121318; color: #B9D3E2;"><i class="bi bi-eye me-1"></i> Detail</button>
-                <button class="btn btn-sm me-1 rounded-2 border-0" style="background-color: #7D0018; color: #ffffff;"><i class="bi bi-printer me-1"></i> Struk</button>
-                <button class="btn btn-sm rounded-2 border-0" style="background-color: rgba(255, 51, 75, 0.15); color: #FF6B6B;"><i class="bi bi-x-circle"></i></button>
+                <button class="btn btn-sm me-1 rounded-2 border-0" style="background-color: #121318; color: #B9D3E2;" 
+                        data-bs-toggle="modal" data-bs-target="#modalDetailTRX" 
+                        onclick="showDetail('#TRX-20260814-02', 'QRIS', 'Rp 75.000', 'Rp 75.000', 'Rp 0', [
+                          {nama: '3x Nasi Goreng Spesial', sub: 'Rp 75.000', unit: '@ Rp 25.000'}
+                        ])">
+                  <i class="bi bi-eye me-1"></i> Detail
+                </button>
+                <button class="btn btn-sm me-1 rounded-2 border-0" style="background-color: #7D0018; color: #ffffff;" 
+                        onclick="cetakStruk('#TRX-20260814-02')">
+                  <i class="bi bi-printer me-1"></i> Struk
+                </button>
+                <button class="btn btn-sm rounded-2 border-0" style="background-color: rgba(255, 51, 75, 0.15); color: #FF6B6B;" 
+                        data-bs-toggle="modal" data-bs-target="#modalVoidTRX" 
+                        onclick="confirmVoid('#TRX-20260814-02')">
+                  <i class="bi bi-x-circle"></i>
+                </button>
               </div>
             </td>
           </tr>
@@ -191,50 +218,36 @@
 
 </div>
 
-<!-- Modal Detail Item Transaksi (#TRX-20260814-01) -->
-<div class="modal fade" id="modalDetailTRX1" tabindex="-1" aria-hidden="true">
+<!-- MODAL DINAMIS DETAIL TRANSAKSI -->
+<div class="modal fade" id="modalDetailTRX" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 rounded-4" style="background-color: #1E222D; color: #E1E7ED; border: 1px solid #25435D !important;">
       <div class="modal-header border-bottom pb-3" style="border-color: #25435D !important;">
         <h5 class="modal-title fw-bold text-white">
-          <i class="bi bi-receipt me-2" style="color: #B9D3E2;"></i> Rincian #TRX-20260814-01
+          <i class="bi bi-receipt me-2" style="color: #B9D3E2;"></i> Rincian <span id="detailNotaTitle">#TRX-000</span>
         </h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body py-3">
         
-        <!-- List Item Belanja -->
-        <div class="p-3 rounded-3 mb-3" style="background-color: #121318; border: 1px solid #25435D;">
-          <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom" style="border-color: rgba(37, 67, 93, 0.4) !important;">
-            <div>
-              <div class="fw-semibold text-white">2x Kopi Susu Gula Aren</div>
-              <small style="color: #87A4B5;">@ Rp 15.000</small>
-            </div>
-            <span class="fw-bold" style="color: #B9D3E2;">Rp 30.000</span>
-          </div>
-
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <div class="fw-semibold text-white">1x Roti Bakar Cokelat</div>
-              <small style="color: #87A4B5;">@ Rp 11.000</small>
-            </div>
-            <span class="fw-bold" style="color: #B9D3E2;">Rp 11.000</span>
-          </div>
+        <!-- List Item Belanja Dinamis -->
+        <div id="itemListContainer" class="p-3 rounded-3 mb-3" style="background-color: #121318; border: 1px solid #25435D;">
+          <!-- Item akan di-generate via JS -->
         </div>
 
         <!-- Rincian Pembayaran -->
         <div class="p-3 rounded-3" style="background-color: #121318;">
           <div class="d-flex justify-content-between mb-2 small" style="color: #87A4B5;">
             <span>Subtotal</span>
-            <span class="text-white">Rp 41.000</span>
+            <span class="text-white" id="detailSubtotal">Rp 0</span>
           </div>
           <div class="d-flex justify-content-between mb-2 small" style="color: #87A4B5;">
-            <span>Uang Diterima (Cash)</span>
-            <span class="text-white">Rp 50.000</span>
+            <span>Uang Diterima (<span id="detailMetode">Tunai</span>)</span>
+            <span class="text-white" id="detailBayar">Rp 0</span>
           </div>
           <div class="d-flex justify-content-between align-items-center fw-bold pt-2 border-top" style="border-color: #25435D !important; font-size: 1.1rem;">
             <span style="color: #87A4B5;">Kembalian</span>
-            <span style="color: #52D68A;">Rp 9.000</span>
+            <span style="color: #52D68A;" id="detailKembali">Rp 0</span>
           </div>
         </div>
 
@@ -245,4 +258,80 @@
     </div>
   </div>
 </div>
+
+<!-- MODAL KONFIRMASI VOID TRANSAKSI -->
+<div class="modal fade" id="modalVoidTRX" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content border-0 rounded-4" style="background-color: #1E222D; color: #E1E7ED; border: 1px solid #7D0018 !important;">
+      <div class="modal-body text-center p-4">
+        <div class="d-inline-flex p-3 rounded-circle mb-3" style="background-color: rgba(255, 51, 75, 0.15); color: #FF6B6B;">
+          <i class="bi bi-exclamation-triangle fs-2"></i>
+        </div>
+        <h5 class="fw-bold text-white mb-2">Batalkan Transaksi?</h5>
+        <p class="small text-muted mb-3" style="color: #87A4B5 !important;">Apakah Anda yakin ingin melakukan Void pada nota <strong id="voidNotaTitle" class="text-white">#TRX-000</strong>?</p>
+        <div class="d-flex gap-2 justify-content-center">
+          <button type="button" class="btn btn-sm px-3 border-0 text-white" style="background-color: #121318;" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-sm px-3 border-0 fw-semibold" style="background-color: #7D0018; color: #ffffff;" onclick="submitVoid()">Ya, Void Nota</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT JAVASCRIPT LOGIKA OPERASIONAL -->
+<script>
+  // Fungsi mengisikan data secara dinamis pada Modal Detail
+  function showDetail(noNota, metode, subtotal, bayar, kembali, items) {
+    document.getElementById('detailNotaTitle').innerText = noNota;
+    document.getElementById('detailMetode').innerText = metode;
+    document.getElementById('detailSubtotal').innerText = subtotal;
+    document.getElementById('detailBayar').innerText = bayar;
+    document.getElementById('detailKembali').innerText = kembali;
+
+    const container = document.getElementById('itemListContainer');
+    container.innerHTML = '';
+
+    items.forEach((item, index) => {
+      const isLast = index === items.length - 1;
+      const borderStyle = isLast ? '' : 'border-bottom: 1px solid rgba(37, 67, 93, 0.4) !important; mb-2 pb-2';
+      
+      container.innerHTML += `
+        <div class="d-flex justify-content-between align-items-center ${borderStyle}">
+          <div>
+            <div class="fw-semibold text-white">${item.nama}</div>
+            <small style="color: #87A4B5;">${item.unit}</small>
+          </div>
+          <span class="fw-bold" style="color: #B9D3E2;">${item.sub}</span>
+        </div>
+      `;
+    });
+  }
+
+  // Fungsi simulasi pencetakan Struk
+  function cetakStruk(noNota) {
+    alert('Mencetak Struk untuk Nota: ' + noNota);
+  }
+
+  // Fungsi menyiapkan data Void
+  let selectedVoidNota = '';
+  function confirmVoid(noNota) {
+    selectedVoidNota = noNota;
+    document.getElementById('voidNotaTitle').innerText = noNota;
+  }
+
+  // Fungsi eksekusi Void
+  function submitVoid() {
+    alert('Transaksi ' + selectedVoidNota + ' telah berhasil di-Void.');
+    const modalEl = document.getElementById('modalVoidTRX');
+    const modal = bootstrap.Modal.getInstance(modalEl);
+    if(modal) modal.hide();
+  }
+
+  // Fungsi reset Filter
+  function resetFilter() {
+    document.getElementById('filterKeyword').value = '';
+    document.getElementById('filterMetode').value = '';
+    document.getElementById('filterStatus').value = '';
+  }
+</script>
 @endsection
