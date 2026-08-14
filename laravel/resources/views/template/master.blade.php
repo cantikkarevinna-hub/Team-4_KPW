@@ -11,208 +11,151 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   
   <style>
-    /* ============================================================
-       Definisi Variabel Warna Berdasarkan Palet yang Anda Berikan
-       ============================================================ */
-    :root {
-      /* Deep Reds */
-      --color-primary-red: #7D0018; /* Merah cerah (#1) */
-      --color-deep-burgundy: #340A13; /* Burgundy gelap (#2) */
-      --color-near-black: #010003; /* Hampir Hitam (#3) */
-
-      /* Cool Grey-Blues */
-      --color-blue-grey-dark: #25435D; /* Biru-abu tua (#4) */
-      --color-blue-grey-mid: #4C6C81; /* Biru-abu sedang (#5) */
-      --color-blue-grey-light: #87A4B5; /* Biru-abu muda (#6) */
-      --color-blue-pastel-light: #B9D3E2; /* Biru pastel terang (#7) */
-
-      /* Teks & Kontras */
-      --text-color-primary: #B9D3E2; /* Teks terang utama (menggunakan #7) */
-      --text-color-muted: #87A4B5; /* Teks pelengkap (menggunakan #6) */
-      --text-color-on-light: #25435D; /* Teks gelap pada latar terang (menggunakan #4) */
-    }
-
-    /* -----------------------------------------------------------
-       Gaya Global (Latar Belakang & Teks Utama)
-    ----------------------------------------------------------- */
+    /* Base Page & Layout */
     body { 
-      background-color: var(--color-near-black); /* Latar belakang: Hampir Hitam (#3) */
-      color: var(--text-color-primary); /* Teks utama: Biru pastel terang (#7) */
+      background-color: #121318 !important; 
+      color: #E1E7ED !important; 
       min-height: 100vh; 
       margin: 0; 
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
-    /* -----------------------------------------------------------
-       Sidebar / Navigasi Kiri
-    ----------------------------------------------------------- */
+    
     .sidebar { 
       min-height: 100vh; 
-      background-color: var(--color-deep-burgundy); /* Sidebar: Burgundy gelap (#2) */
-      border-right: 2px solid var(--color-primary-red); /* Border: Merah cerah (#1) */
+      background-color: #1E222D !important; 
+      border-right: 1px solid #25435D !important; 
       display: flex; 
       flex-direction: column; 
     }
-
-    /* Gaya Judul Sidebar */
-    .sidebar h4 {
-      color: var(--color-primary-red) !important; /* Judul sidebar: Merah cerah (#1) */
-      font-weight: bold;
-    }
-    .sidebar h4 i {
-        color: var(--color-blue-pastel-light) !important; /* Ikon judul: Biru pastel terang (#7) */
-    }
-
-    /* Menu Link Navigasi */
+    
     .nav-link { 
-      color: var(--text-color-muted) !important; /* Warna teks menu: Biru-abu muda (#6) */
-      margin-bottom: 6px; 
-      border-radius: 8px; 
-      font-weight: 600;
-      transition: all 0.2s ease-in-out;
+      color: #87A4B5; 
+      margin-bottom: 4px; 
+      border-radius: 6px; 
     }
     .nav-link:hover { 
-      color: var(--color-near-black) !important; /* Teks jadi gelap saat hover */
-      background-color: var(--color-blue-grey-light); /* Background hover: Biru-abu muda (#6) */
+      color: #fff; 
+      background-color: rgba(255, 255, 255, 0.05); 
     }
     .nav-link.active { 
-      color: var(--color-near-black) !important; /* Teks aktif jadi gelap */
-      background-color: var(--color-primary-red) !important; /* Background aktif: Merah cerah (#1) */
-      box-shadow: 0 4px 10px rgba(125, 0, 24, 0.4);
+      color: #fff; 
+      background-color: #0d6efd !important; 
+      font-weight: bold; 
     }
 
-    /* Ikon Menu */
-    .nav-link i {
-        color: inherit !important; /* Warna ikon mengikuti warna teks menu */
+    /* PAKSA SEMUA KOMPONEN MENJADI DARK MODE TOTAL */
+    .card, 
+    .bg-white, 
+    .modal-content, 
+    .list-group-item { 
+      background-color: #1E222D !important; 
+      border-color: #25435D !important; 
+      color: #E1E7ED !important; 
     }
 
-    /* -----------------------------------------------------------
-       Card & Komponen Konten
-    ----------------------------------------------------------- */
-    .card { 
-      background-color: var(--color-blue-grey-dark); /* Latar card: Biru-abu tua (#4) */
-      border: 1px solid var(--color-blue-grey-mid); /* Border card: Biru-abu sedang (#5) */
-      color: var(--text-color-primary); /* Teks card: Biru pastel terang (#7) */
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(1, 0, 3, 0.5); /* Shadow gelap */
-    }
-    .card .text-muted {
-        color: var(--text-color-muted) !important; /* Teks muted dalam card: Biru-abu muda (#6) */
+    /* Perbaikan Tabel Gelap */
+    .table, 
+    .table > :not(caption) > * > * {
+      background-color: transparent !important;
+      color: #B9D3E2 !important;
+      border-color: rgba(37, 67, 93, 0.4) !important;
     }
 
-    /* -----------------------------------------------------------
-       Komponen Input & Form
-    ----------------------------------------------------------- */
-    .form-control, .input-group-text {
-      background-color: var(--color-near-black) !important; /* Input: Hampir Hitam (#3) */
-      border-color: var(--color-blue-grey-mid) !important; /* Border input: Biru-abu sedang (#5) */
-      color: var(--text-color-primary) !important; /* Teks input: Biru pastel terang (#7) */
-    }
-    .form-control:focus {
-      border-color: var(--color-primary-red) !important; /* Border focus: Merah cerah (#1) */
-      box-shadow: 0 0 0 0.25rem rgba(125, 0, 24, 0.25) !important;
-    }
-    .form-control::placeholder {
-        color: var(--text-color-muted) !important; /* Placeholder: Biru-abu muda (#6) */
-        opacity: 0.7;
+    .table thead, 
+    .table thead tr, 
+    .table thead th {
+      background-color: #1E222D !important;
+      color: #ffffff !important;
+      border-bottom: 2px solid #25435D !important;
     }
 
-    /* -----------------------------------------------------------
-       Tabel Tema Gelap
-    ----------------------------------------------------------- */
-    .table {
-      color: var(--text-color-primary) !important; /* Teks tabel: Biru pastel terang (#7) */
+    /* Input Form & Select */
+    .form-control, .form-select {
+      background-color: #121318 !important;
+      color: #ffffff !important;
+      border-color: #25435D !important;
     }
-    .table-dark {
-      background-color: var(--color-blue-grey-dark) !important; /* Latar tabel: Biru-abu tua (#4) */
-      color: var(--text-color-primary) !important;
+    .form-control::placeholder { color: #87A4B5 !important; }
+
+    /* Custom Scrollbar */
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
     }
-    .table-dark th {
-      background-color: var(--color-deep-burgundy) !important; /* Header tabel: Burgundy gelap (#2) */
-      color: var(--color-primary-red) !important; /* Teks header: Merah cerah (#1) */
-      border-color: var(--color-blue-grey-mid) !important; /* Border header: Biru-abu sedang (#5) */
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #121318;
     }
-    .table-dark td {
-      background-color: var(--color-blue-grey-dark) !important; /* Baris tabel: Biru-abu tua (#4) */
-      border-color: var(--color-blue-grey-mid) !important; /* Border baris: Biru-abu sedang (#5) */
-      color: var(--text-color-primary) !important;
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #25435D;
+      border-radius: 4px;
     }
-    /* Hover effect pada baris tabel */
-    .table-hover tbody tr:hover {
-        background-color: var(--color-blue-grey-mid) !important; /* Warna hover baris: Biru-abu sedang (#5) */
-        color: var(--color-near-black) !important; /* Teks jadi gelap saat hover baris */
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #3A6284;
     }
 
-    /* -----------------------------------------------------------
-       Tombol Utama Tema Merah
-    ----------------------------------------------------------- */
-    .btn-primary {
-      background-color: var(--color-primary-red) !important; /* Tombol utama: Merah cerah (#1) */
-      border-color: var(--color-primary-red) !important;
-      color: var(--color-near-black) !important; /* Teks tombol: Hampir Hitam (#3) untuk kontras */
-      border-radius: 8px;
-      font-weight: bold;
-    }
-    .btn-primary:hover {
-      background-color: var(--color-deep-burgundy) !important; /* Hover tombol: Burgundy gelap (#2) */
-      border-color: var(--color-deep-burgundy) !important;
-      color: var(--color-primary-red) !important; /* Teks hover: Merah cerah (#1) */
-    }
+    .text-muted { color: #87A4B5 !important; }
   </style>
 </head>
 <body>
 
-<div class="container-fluid">
-  <div class="row min-vh-100">
-    <!-- Sidebar / Navigasi Kiri -->
-    <nav class="col-md-3 col-lg-2 d-md-block sidebar p-3">
-      <h4 class="text-center py-2 border-bottom border-danger-subtle fw-bold">
-        <i class="bi bi-shop me-1"></i> Kasir POS
-      </h4>
+  <div class="d-flex">
+   <!-- Sidebar Navigasi -->
+    <div class="sidebar p-3" style="width: 240px;">
+      <h4 class="fw-bold text-white mb-4 px-2">Kasir</h4>
       
-      <ul class="nav nav-pills flex-column mt-3">
+      <ul class="nav nav-pills flex-column mb-auto">
+        <!-- Dashboard -->
         <li class="nav-item">
-          <a class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}" href="{{ url('/dashboard') }}">
+          <a href="/dashboard" class="nav-link {{ request()->is('dashboard*') ? 'active' : '' }}">
             <i class="bi bi-speedometer2 me-2"></i> Dashboard
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link {{ request()->is('kasir') ? 'active' : '' }}" href="{{ url('/kasir') }}">
+
+        <!-- Transaksi Kasir -->
+        <li>
+          <a href="/kasir" class="nav-link {{ request()->is('kasir*') ? 'active' : '' }}">
             <i class="bi bi-cart3 me-2"></i> Transaksi Kasir
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link {{ request()->is('produk') ? 'active' : '' }}" href="{{ url('/produk') }}">
+
+        <!-- Kelola Produk -->
+        <li>
+          <a href="/produk" class="nav-link {{ request()->is('produk*') ? 'active' : '' }}">
             <i class="bi bi-box-seam me-2"></i> Kelola Produk
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link {{ request()->is('riwayat') ? 'active' : '' }}" href="{{ url('/riwayat') }}">
-            <i class="bi bi-receipt me-2"></i> Riwayat
+
+        <!-- Riwayat -->
+        <li>
+          <a href="/riwayat" class="nav-link {{ request()->is('riwayat*') ? 'active' : '' }}">
+            <i class="bi bi-clock-history me-2"></i> Riwayat
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link {{ request()->is('laporan') ? 'active' : '' }}" href="{{ url('/laporan') }}">
-            <i class="bi bi-graph-up me-2"></i> Laporan
+
+        <!-- Laporan -->
+        <li>
+          <a href="/laporan" class="nav-link {{ request()->is('laporan*') ? 'active' : '' }}">
+            <i class="bi bi-bar-chart me-2"></i> Laporan
           </a>
         </li>
       </ul>
 
-      <!-- TOMBOL LOGOUT -->
-      <div class="mt-auto pt-4 border-top border-danger-subtle">
-        <a href="{{ url('/logout') }}" class="nav-link text-danger fw-bold">
+      <hr style="border-color: #25435D;">
+
+      <!-- Tombol Logout -->
+      <form method="POST" action="/logout">
+        @csrf
+        <button type="submit" class="nav-link text-danger border-0 bg-transparent w-100 text-start px-3 py-2" style="cursor: pointer;">
           <i class="bi bi-box-arrow-right me-2"></i> Logout
-        </a>
-      </div>
-    </nav>
+        </button>
+      </form>
+    </div>
 
-    <!-- Area Konten Utama -->
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+    <!-- Main Content Area -->
+    <div class="flex-grow-1">
       @yield('content')
-    </main>
+    </div>
   </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
