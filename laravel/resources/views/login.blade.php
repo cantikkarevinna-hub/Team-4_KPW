@@ -4,73 +4,132 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Kasir POS</title>
+  <!-- Bootstrap 5 CSS & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <style>
-    /* Latar Belakang: #010003 (Hampir Hitam) */
-    body { background-color: #010003; color: #B9D3E2; height: 100vh; display: flex; align-items: center; justify-content: center; }
-    
-    /* Card: #25435D (Biru-Abu Tua) dengan Border #4C6C81 */
-    .card { background-color: #25435D; border: 1px solid #4C6C81; width: 100%; max-width: 400px; border-radius: 20px; box-shadow: 0 8px 24px rgba(1, 0, 3, 0.6); }
-    
-    /* Tombol: #7D0018 (Merah Tua) */
-    .btn-pink { background-color: #7D0018; color: #B9D3E2; font-weight: bold; border: none; }
-    .btn-pink:hover { background-color: #340A13; color: #ffffff; }
-
-    /* Input & Group Icon */
-    .form-control, .input-group-text {
-      background-color: #010003 !important;
-      border-color: #4C6C81 !important;
-      color: #B9D3E2 !important;
+    body {
+      background-color: #121318;
+      color: #E1E7ED;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
     }
-    .form-control::placeholder {
-      color: #87A4B5 !important;
-      opacity: 0.7;
+    .login-card {
+      background-color: #1E222D;
+      border: 1px solid #25435D;
+      width: 100%;
+      max-width: 420px;
     }
     .form-control:focus {
-      border-color: #7D0018 !important;
-      box-shadow: 0 0 0 0.25rem rgba(125, 0, 24, 0.25) !important;
+      background-color: #121318 !important;
+      color: #ffffff !important;
+      border-color: #4C6C81 !important;
+      box-shadow: 0 0 0 0.25rem rgba(76, 108, 129, 0.25) !important;
+    }
+    .input-group-text {
+      border: 1px solid transparent;
+    }
+    .btn-login {
+      background-color: #7D0018;
+      color: #ffffff;
+      transition: all 0.2s ease-in-out;
+    }
+    .btn-login:hover {
+      background-color: #A30020;
+      color: #ffffff;
+      transform: translateY(-1px);
     }
   </style>
 </head>
 <body>
 
-<div class="card p-4">
+<div class="login-card p-4 p-sm-5 shadow-lg rounded-4 m-3">
+  
+  <!-- Logo & Branding Header -->
   <div class="text-center mb-4">
-    <h3 class="fw-bold" style="color: #7D0018;"><i class="bi bi-cart3 me-2" style="color: #B9D3E2;"></i>KASIR POS</h3>
-    <p class="small" style="color: #87A4B5;">Masukan Nama & Password untuk masuk</p>
+    <div class="d-inline-flex align-items-center justify-content-center p-3 rounded-circle mb-3" style="background-color: rgba(125, 0, 24, 0.2); color: #FF4D6D;">
+      <i class="bi bi-cart3 fs-1"></i>
+    </div>
+    <h3 class="fw-bold text-white mb-1">KASIR POS</h3>
+    <p class="small m-0" style="color: #87A4B5;">Masukan akun kasir untuk memulai sesi</p>
   </div>
 
+  <!-- Pesan Alert Notifikasi/Error -->
   @if(session('error'))
-    <div class="alert alert-danger py-2 small mb-3 text-center" style="background-color: #340A13; border-color: #7D0018; color: #B9D3E2;">
-      <i class="bi bi-exclamation-triangle-fill me-1" style="color: #7D0018;"></i> {{ session('error') }}
+    <div class="alert border-0 py-2 px-3 small mb-4 rounded-3 d-flex align-items-center gap-2" style="background-color: rgba(255, 51, 75, 0.15); color: #FF6B6B; border: 1px solid #7D0018 !important;">
+      <i class="bi bi-exclamation-triangle-fill fs-6"></i>
+      <div>{{ session('error') }}</div>
     </div>
   @endif
 
   <form action="{{ url('/login-process') }}" method="POST">
     @csrf
+    
+    <!-- Input Username -->
     <div class="mb-3">
-      <label class="form-label small" style="color: #87A4B5;">Nama / Username</label>
+      <label class="form-label small fw-semibold" style="color: #87A4B5;">Username / Nama</label>
       <div class="input-group">
-        <span class="input-group-text border-end-0"><i class="bi bi-person" style="color: #7D0018;"></i></span>
-        <input type="text" name="username" class="form-control border-start-0" placeholder="Ketik nama/username" required autocomplete="off">
+        <span class="input-group-text border-0" style="background-color: #121318; color: #87A4B5;">
+          <i class="bi bi-person"></i>
+        </span>
+        <input type="text" name="username" class="form-control border-0 py-2" style="background-color: #121318; color: #ffffff;" placeholder="Ketik username Anda" required autocomplete="off">
       </div>
     </div>
 
-    <div class="mb-4">
-      <label class="form-label small" style="color: #87A4B5;">Password</label>
+    <!-- Input Password dengan Toggle Eye -->
+    <div class="mb-3">
+      <label class="form-label small fw-semibold" style="color: #87A4B5;">Password</label>
       <div class="input-group">
-        <span class="input-group-text border-end-0"><i class="bi bi-lock" style="color: #7D0018;"></i></span>
-        <input type="password" name="password" class="form-control border-start-0" placeholder="Ketik password" required>
+        <span class="input-group-text border-0" style="background-color: #121318; color: #87A4B5;">
+          <i class="bi bi-lock"></i>
+        </span>
+        <input type="password" id="passwordInput" name="password" class="form-control border-0 py-2" style="background-color: #121318; color: #ffffff;" placeholder="Ketik password Anda" required>
+        <button type="button" class="btn border-0 px-3" style="background-color: #121318; color: #87A4B5;" onclick="togglePassword()">
+          <i class="bi bi-eye" id="toggleIcon"></i>
+        </button>
       </div>
     </div>
 
-    <button type="submit" class="btn btn-pink w-100 py-2 rounded-3">
-      <i class="bi bi-box-arrow-in-right me-2"></i> LOG IN
+    <!-- Remember Me & Forgot Pass -->
+    <div class="d-flex justify-content-between align-items-center mb-4 small">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="rememberMe" style="background-color: #121318; border-color: #25435D;">
+        <label class="form-check-label" for="rememberMe" style="color: #87A4B5;">Ingat Saya</label>
+      </div>
+      <a href="#" class="text-decoration-none" style="color: #B9D3E2;">Lupa password?</a>
+    </div>
+
+    <!-- Tombol Submit -->
+    <button type="submit" class="btn btn-login w-100 py-2.5 fw-bold border-0 shadow rounded-3">
+      <i class="bi bi-box-arrow-in-right me-2"></i> MASUK KE SISTEM
     </button>
   </form>
+
+  <!-- Footer Info -->
+  <div class="text-center mt-4 pt-3 border-top" style="border-color: #25435D !important;">
+    <small style="color: #87A4B5;">POS System v2.4 &copy; {{ date('Y') }}</small>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function togglePassword() {
+    const pwdInput = document.getElementById('passwordInput');
+    const icon = document.getElementById('toggleIcon');
+    if (pwdInput.type === 'password') {
+      pwdInput.type = 'text';
+      icon.classList.remove('bi-eye');
+      icon.classList.add('bi-eye-slash');
+    } else {
+      pwdInput.type = 'password';
+      icon.classList.remove('bi-eye-slash');
+      icon.classList.add('bi-eye');
+    }
+  }
+</script>
 </body>
 </html>
