@@ -10,6 +10,10 @@ Route::get('/login', function () {
     return view('login');
 });
 
+Route::post('/login-process', function () {
+    return redirect('/dashboard');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
